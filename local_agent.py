@@ -1,3 +1,5 @@
+# inspiration https://github.com/Priyansh-15/Steganography-Tools
+# modified to use pre shared key randomly generated that can be shared between two
 import wave
 import logging
 
@@ -30,8 +32,9 @@ def psk_to_binary(psk):
 
     psk_bytes = binascii.unhexlify(psk)
     binary_psk = bin(int.from_bytes(psk_bytes, byteorder='big'))[2:]
+    binary_list = [int(bit) for bit in binary_psk]
 
-    return binary_psk
+    return binary_list
 
 def encode(source_file: str, destination_file: str, message: str):
     try:
@@ -54,6 +57,7 @@ def encode(source_file: str, destination_file: str, message: str):
 
     try:
         psk = psk_to_binary(PSK_GLOBAL)
+        print(psk)
         result = []
 
         for c in message:
@@ -61,11 +65,11 @@ def encode(source_file: str, destination_file: str, message: str):
             result.extend([int(b) for b in bits])
         
         print(result)
-
         j = 0
         for i in range(0,len(result),1): 
             res = bin(frame_bytes[j])[2:].zfill(8)
-            if res[len(res)-4] == result[i]:
+            print(res, res[psk[i % len(psk)]], i, len(psk))
+            if res[psk[i % len(psk)]+3] == result[i]:
                 frame_bytes[j] = (frame_bytes[j] & 253)      #253: 11111101
             else:
                 frame_bytes[j] = (frame_bytes[j] & 253) | 2
@@ -99,10 +103,12 @@ def decode(source_file):
 
     extracted = ""
     try:
+        psk = psk_to_binary(PSK_GLOBAL)
+
         for i in range(len(frame_bytes)):
             res = bin(frame_bytes[i])[2:].zfill(8)
             if res[len(res)-2]==0:
-                extracted+=res[len(res)-4]
+                extracted+=res[psk[i % len(psk)]+3]
             else:
                 extracted+=res[len(res)-1]
         
