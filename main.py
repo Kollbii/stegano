@@ -8,7 +8,7 @@ logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] [%(filename)s] - %(message)s",
     handlers=[
-        logging.FileHandler("./log/stegano.log"),
+        logging.FileHandler("./logs/stegano.log"),
         logging.StreamHandler()
     ]
 )

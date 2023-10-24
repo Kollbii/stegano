@@ -7,7 +7,7 @@ logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] [%(filename)s] - %(message)s",
     handlers=[
-        logging.FileHandler("./log/stegano.log"),
+        logging.FileHandler("./logs/stegano.log"),
         logging.StreamHandler()
     ]
 )
@@ -57,20 +57,17 @@ def encode(source_file: str, destination_file: str, message: str):
 
     try:
         psk = psk_to_binary(PSK_GLOBAL)
-        print(psk)
         result = []
 
         for c in message:
             bits = bin(ord(c))[2:].zfill(8)
             result.extend([int(b) for b in bits])
         
-        print(result)
         j = 0
         for i in range(0,len(result),1): 
             res = bin(frame_bytes[j])[2:].zfill(8)
-            print(res, res[psk[i % len(psk)]], i, len(psk))
             if res[psk[i % len(psk)]+3] == result[i]:
-                frame_bytes[j] = (frame_bytes[j] & 253)      #253: 11111101
+                frame_bytes[j] = (frame_bytes[j] & 253) #253: 11111101
             else:
                 frame_bytes[j] = (frame_bytes[j] & 253) | 2
                 frame_bytes[j] = (frame_bytes[j] & 254) | result[i]
