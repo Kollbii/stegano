@@ -27,6 +27,16 @@ def generate_random_psk():
     PSK_GLOBAL = psk
     return psk
 
+def get_psk_from_env():
+    import os
+    global PSK_GLOBAL
+    PSK_GLOBAL = os.environ.get("PSK_GLOBAL")
+
+def read_psk():
+    global PSK_GLOBAL
+    with open("./assets/key.psk", 'r') as f:
+        PSK_GLOBAL = f.readline()
+
 def psk_to_binary(psk):
     import binascii
 
@@ -56,6 +66,8 @@ def encode(source_file: str, destination_file: str, message: str):
         logging.error("Could not read source file or message: %s", str(e))
 
     try:
+        read_psk()
+        print("PSK GLOBAL: ", PSK_GLOBAL)
         psk = psk_to_binary(PSK_GLOBAL)
         result = []
 
@@ -100,6 +112,7 @@ def decode(source_file):
 
     extracted = ""
     try:
+        read_psk()
         psk = psk_to_binary(PSK_GLOBAL)
 
         for i in range(len(frame_bytes)):
