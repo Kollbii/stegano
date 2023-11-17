@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import filedialog
 from tkinter import ttk
-from local_agent import encode, decode, generate_random_psk, psk_to_binary
+from local_agent import encode, decode
 import logging
 
 logging.basicConfig(
@@ -101,10 +101,20 @@ if __name__ == '__main__':
     encode_button = ttk.Button(decode_frame, text="Decode", command=decode_message)
     encode_button.grid(row=2, column=2, padx=10, pady=10)
 
+
     # Help Tab
     help_frame = ttk.Frame(notebook)
     notebook.add(help_frame, text="Help")
-
+    help_text_label = ttk.Label(help_frame, text="""
+    Encode tab:
+    - key.psk should be in the same directory as local agent
+    - key.psk is provided by distribution agent
+    - source and destinition file must exist (destination file can be blank - it will be overwritten)
+    Decode tab:
+    - source file must be the file that contains encoded message
+    Help tab: Displays this message
+    """)
+    help_text_label.pack()
 
     notebook.pack()
 
