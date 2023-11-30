@@ -1,0 +1,13 @@
+2023-11-17 12:19:57,827 [INFO] [local_agent.py] - Length of binary after conversion: 152
+2023-11-17 12:19:57,827 [INFO] [local_agent.py] - Length of source file: 37252484
+2023-11-17 12:19:57,829 [ERROR] [local_agent.py] - Could not embed message in the file properly: argument should be bytes, buffer or ASCII string, not 'NoneType'
+2023-11-17 12:19:57,831 [ERROR] [local_agent.py] - Could not write to file: cannot access local variable 'frame_modified' where it is not associated with a value
+2023-11-17 12:27:59,277 [INFO] [local_agent.py] - Length of binary after conversion: 272
+2023-11-17 12:27:59,278 [INFO] [local_agent.py] - Length of source file: 37252484
+2023-11-17 12:27:59,334 [INFO] [local_agent.py] - Succesfuly encoded message to file /Users/kollu/repos/stegano/assets/test.wav
+2023-11-17 12:47:45,364 [INFO] [local_agent.py] - Length of binary after conversion: 152
+2023-11-17 12:47:45,365 [INFO] [local_agent.py] - Length of source file: 37252484
+2023-11-17 12:47:45,421 [INFO] [local_agent.py] - Succesfuly encoded message to file /Users/kollu/repos/stegano/assets/test.wav
+2023-11-17 12:56:36,125 [INFO] [local_agent.py] - Length of binary after conversion: 256
+2023-11-17 12:56:36,125 [INFO] [local_agent.py] - Length of source file: 37252484
+2023-11-17 12:56:36,178 [INFO] [local_agent.py] - Succesfuly encoded message to file /Users/kollu/repos/stegano/assets/test.wav

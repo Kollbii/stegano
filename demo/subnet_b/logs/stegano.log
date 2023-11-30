@@ -1,0 +1,3 @@
+2023-11-17 12:21:42,927 [INFO] [local_agent.py] - Length of binary after conversion: 128
+2023-11-17 12:21:42,927 [INFO] [local_agent.py] - Length of source file: 37252484
+2023-11-17 12:21:42,977 [INFO] [local_agent.py] - Succesfuly encoded message to file /Users/kollu/repos/stegano/assets/test.wav

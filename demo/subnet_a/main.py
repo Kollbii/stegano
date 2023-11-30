@@ -1,22 +1,17 @@
-import logging
-import os
 import tkinter as tk
-from tkinter import filedialog, ttk
-
-from local_agent import (
-    decode,
-    encode,
-    generate_random_psk,
-    get_psk_from_env,
-    psk_to_binary,
-)
+from tkinter import filedialog
+from tkinter import ttk
+from local_agent import encode, decode
+import logging
 
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] [%(filename)s] - %(message)s",
-    handlers=[logging.FileHandler("./logs/stegano.log"), logging.StreamHandler()],
+    handlers=[
+        logging.FileHandler("./logs/stegano.log"),
+        logging.StreamHandler()
+    ]
 )
-
 
 def browse_file(entry):
     try:
@@ -25,7 +20,6 @@ def browse_file(entry):
         entry.insert(0, file_path)
     except Exception as e:
         logging.error("Could not load entry file: %s", str(e))
-
 
 def encode_message():
     source_file = source_entry.get()
@@ -39,7 +33,6 @@ def encode_message():
     encode_info_text.insert(tk.END, "Message encoded successfully.")
     encode_info_text.config(state=tk.DISABLED)
 
-
 def decode_message():
     source_file = decode_entry.get()
 
@@ -50,11 +43,10 @@ def decode_message():
     decode_info_text.insert(tk.END, decoded_message)
     decode_info_text.config(state=tk.DISABLED)
 
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     # random_psk = generate_random_psk()
     # print("Random PSK:", random_psk)
-
+    
     root = tk.Tk()
     root.title("Decoupled steganography")
 
@@ -68,18 +60,14 @@ if __name__ == "__main__":
     source_label.grid(row=0, column=0, padx=10, pady=10)
     source_entry = ttk.Entry(encode_frame, width=40)
     source_entry.grid(row=0, column=1, padx=10, pady=10)
-    source_button = ttk.Button(
-        encode_frame, text="Browse", command=lambda: browse_file(source_entry)
-    )
+    source_button = ttk.Button(encode_frame, text="Browse", command=lambda: browse_file(source_entry))
     source_button.grid(row=0, column=2, padx=10, pady=10)
 
     destination_label = ttk.Label(encode_frame, text="Destination File:")
     destination_label.grid(row=1, column=0, padx=10, pady=10)
     destination_entry = ttk.Entry(encode_frame, width=40)
     destination_entry.grid(row=1, column=1, padx=10, pady=10)
-    destination_button = ttk.Button(
-        encode_frame, text="Browse", command=lambda: browse_file(destination_entry)
-    )
+    destination_button = ttk.Button(encode_frame, text="Browse", command=lambda: browse_file(destination_entry))
     destination_button.grid(row=1, column=2, padx=10, pady=10)
 
     message_label = ttk.Label(encode_frame, text="Message:")
@@ -102,9 +90,7 @@ if __name__ == "__main__":
     source_label.grid(row=0, column=0, padx=10, pady=10)
     decode_entry = ttk.Entry(decode_frame, width=40)
     decode_entry.grid(row=0, column=1, padx=10, pady=10)
-    source_button = ttk.Button(
-        decode_frame, text="Browse", command=lambda: browse_file(decode_entry)
-    )
+    source_button = ttk.Button(decode_frame, text="Browse", command=lambda: browse_file(decode_entry))
     source_button.grid(row=0, column=2, padx=10, pady=10)
 
     message_label = ttk.Label(decode_frame, text="Message:")
@@ -115,9 +101,20 @@ if __name__ == "__main__":
     encode_button = ttk.Button(decode_frame, text="Decode", command=decode_message)
     encode_button.grid(row=2, column=2, padx=10, pady=10)
 
+
     # Help Tab
     help_frame = ttk.Frame(notebook)
     notebook.add(help_frame, text="Help")
+    help_text_label = ttk.Label(help_frame, text="""
+    Encode tab:
+    - key.psk should be in the same directory as local agent
+    - key.psk is provided by distribution agent
+    - source and destinition file must exist (destination file can be blank - it will be overwritten)
+    Decode tab:
+    - source file must be the file that contains encoded message
+    Help tab: Displays this message
+    """)
+    help_text_label.pack()
 
     notebook.pack()
 
