@@ -1,15 +1,8 @@
 import logging
-import os
 import tkinter as tk
 from tkinter import filedialog, ttk
 
-from local_agent import (
-    decode,
-    encode,
-    generate_random_psk,
-    get_psk_from_env,
-    psk_to_binary,
-)
+from local_agent import decode, encode
 
 logging.basicConfig(
     level=logging.INFO,
@@ -52,9 +45,6 @@ def decode_message():
 
 
 if __name__ == "__main__":
-    # random_psk = generate_random_psk()
-    # print("Random PSK:", random_psk)
-
     root = tk.Tk()
     root.title("Decoupled steganography")
 
